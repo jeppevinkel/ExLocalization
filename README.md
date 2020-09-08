@@ -1,6 +1,13 @@
 # ExLocalization
 Centralized localization for EXILED plugins.
 
+## Config
+The config file is located at `EXILED/Config/ExLocation.yml` where currently it only has a language setting.
+All the translations can be found at `EXILED/Translations/<plugin name>`.
+
+New translations can be user made by simply creating a folder with the language code inside the plugins folder, and copying one of the defaults over, and replacing the text with whatever they want.
+Example country codes. `en`, `en-US`, `en-GB`, `de`, `fr`, and so on. All standard language codes can be found online.
+
 ## Usage
 Example usage of the library
 ```cs
