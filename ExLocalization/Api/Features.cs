@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using Exiled.API.Interfaces;
 
 namespace ExLocalization.Api
@@ -22,6 +17,16 @@ namespace ExLocalization.Api
 
 			FileManager.SaveTranslation(plugin, translation, language);
 			return true;
+		}
+
+		public static T LoadTranslation<T>(this IPlugin<IConfig> plugin)
+		{
+			return FileManager.LoadTranslation<T>(plugin);
+		}
+
+		public static CultureInfo GetLanguage()
+		{
+			return CultureInfo.CurrentCulture;
 		}
 	}
 }

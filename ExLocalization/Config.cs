@@ -2,7 +2,7 @@
 
 namespace ExLocalization
 {
-	public class Config
+	internal class Config
 	{
 		public string Language { get; internal set; } = CultureInfo.CurrentCulture.Name;
 	}

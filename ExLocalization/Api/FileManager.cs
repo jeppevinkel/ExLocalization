@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using Exiled.API.Interfaces;
-using ExLocalization.Api.CustomYaml;
 using YamlDotNet.Serialization;
 
 namespace ExLocalization.Api
@@ -16,15 +17,11 @@ namespace ExLocalization.Api
 		private static readonly IDeserializer Deserializer = new DeserializerBuilder().Build();
 		private static readonly ISerializer Serializer = new SerializerBuilder().Build();
 
-		public static void LoadTranslations()
-		{
-		}
-
 		internal static void SaveTranslation<T>(IPlugin<IConfig> plugin, T translation, string language)
 		{
 			var culture = CultureInfo.GetCultureInfo(language);
 
-			string path = Path.Combine(Path.Combine(TranslationsDir, culture.Name), plugin.Name);
+			string path = Path.Combine(Path.Combine(TranslationsDir, plugin.Name), culture.Name);
 			string file = Path.Combine(path, "translation.yml");
 			string yaml;
 			Directory.CreateDirectory(path);
@@ -41,6 +38,36 @@ namespace ExLocalization.Api
 			yaml = Serializer.Serialize(translation);
 
 			File.WriteAllText(file, yaml);
+		}
+
+		internal static T LoadTranslation<T>(IPlugin<IConfig> plugin)
+		{
+			string pluginPath = Path.Combine(TranslationsDir, plugin.Name);
+			string[] translations = Directory.GetDirectories(pluginPath);
+			var options = new List<string>();
+
+			foreach (string translation in translations)
+			{
+				if (translation.EndsWith(CultureInfo.CurrentCulture.Name))
+				{
+					options.Add(translation);
+					break;
+				}
+				if (translation.EndsWith(CultureInfo.CurrentCulture.TwoLetterISOLanguageName)) options.Add(translation);
+				else if (translation.EndsWith("en")) options.Add(translation);
+			}
+
+			foreach (string file in options.Select(path => Path.Combine(path, "translation.yml")).Where(File.Exists))
+			{
+				return Deserializer.Deserialize<T>(File.ReadAllText(file));
+			}
+
+			foreach (string translation in translations.Where(t => File.Exists(Path.Combine(t, "translation.yml"))))
+			{
+				return Deserializer.Deserialize<T>(File.ReadAllText(Path.Combine(translation, "translation.yml")));
+			}
+
+			return default;
 		}
 
 		internal static void InitialLoad()
@@ -76,8 +103,7 @@ namespace ExLocalization.Api
 
 		internal static void GenerateFolders()
 		{
-			foreach (string cultureName in LanguageManager.CreateCultureNames(true))
-				Directory.CreateDirectory(Path.Combine(TranslationsDir, cultureName));
+			Directory.CreateDirectory(TranslationsDir);
 		}
 	}
 }
