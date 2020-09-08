@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExLocalization", "ExLocalization\ExLocalization.csproj", "{0A8074BF-9D8E-4437-8619-78AD8B5BEFC9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A8074BF-9D8E-4437-8619-78AD8B5BEFC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A8074BF-9D8E-4437-8619-78AD8B5BEFC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A8074BF-9D8E-4437-8619-78AD8B5BEFC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A8074BF-9D8E-4437-8619-78AD8B5BEFC9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {77832278-32B2-4FCE-813C-392EFE91FF10}
+	EndGlobalSection
+EndGlobal
